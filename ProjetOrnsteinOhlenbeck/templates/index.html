@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Arbitrage</title>
+    <link href="https://bootswatch.com/5/lux/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+    body {
+        background-color: #f9fafc; /* fond clair élégant */
+        color: #222; /* texte plus foncé */
+        font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+    }
+
+    .container {
+        padding-top: 40px;
+        padding-bottom: 40px
+        margin: auto;
+        background-color: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+        transform: translateY(-3px);
+    }
+
+    h1, h2, h3 {
+        color: #003366; /* bleu foncé professionnel */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    p, label {
+        color: #333;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background-color: #fdfdfd;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        border-color: #0078d7;
+        box-shadow: 0 0 6px rgba(0, 120, 215, 0.3);
+        outline: none;
+    }
+
+    .btn {
+        background-color: #0078d7;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #005fa3;
+        transform: scale(1.05);
+    }
+
+    .tab-content {
+        margin-top: 25px;
+        background-color: #f5f9ff;
+        padding: 25px;
+        border-radius: 12px;
+        border-left: 5px solid #0078d7;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .tab-content:hover {
+        box-shadow: 0 0 10px rgba(0, 120, 215, 0.1);
+    }
+
+    footer {
+        margin-top: 50px;
+        text-align: center;
+        color: #555;
+        font-size: 15px;
+        padding-bottom: 25px;
+    }
+
+    footer a {
+        color: #0078d7;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    footer a:hover {
+        color: #005fa3;
+        text-decoration: underline;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                <i class="fas fa-home"></i> Introduction
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="mu-tab" data-toggle="tab" href="#mu" role="tab" aria-controls="mu" aria-selected="false">
+                <i class="fas fa-chart-line"></i> Simulations
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="strategie-tab" data-toggle="tab" href="#strategie" role="tab" aria-controls="strategie" aria-selected="false">
+                <i class="fas fa-coins"></i> Stratégie d'Arbitrage
+            </a>
+        </li>
+    </ul>
+
+    <!-- Tab content -->
+    <div class="tab-content" id="myTabContent">
+       <!-- Premier Onglet : Introduction -->
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <h1>Résumé du Projet</h1>
+    <p>
+        Ce projet consiste en une application web développée avec Flask qui permet de simuler et d'analyser des stratégies d'arbitrage statistique entre deux actions, Apple (AAPL) et Microsoft (MSFT). L'application utilise des données historiques récupérées via l'API Yahoo Finance pour modéliser le spread (écart) entre les prix d'ouverture des deux actions. Le spread est modélisé comme un processus d'Ornstein-Uhlenbeck, un modèle couramment utilisé en finance pour les stratégies de retour à la moyenne.
+    </p>
+        <h2>Fonctionnalités Principales</h2>
+    <ol>
+        <li>
+            <strong>Téléchargement des Données :</strong>
+            <p>L'application télécharge les données historiques des prix d'ouverture des actions AAPL et MSFT sur une période et un intervalle définis par l'utilisateur.</p>
+        </li>
+        <li>
+            <strong>Modélisation du Spread :</strong>
+            <p>Le spread entre les deux actions est modélisé comme un processus d'Ornstein-Uhlenbeck. Les paramètres du modèle theta, mu, sigma (theta est estimé à l'aide d'une régression linéaire).</p>
+        </li>
+        <li>
+            <strong>Simulation du Spread :</strong>
+            <p>L'application simule plusieurs trajectoires possibles du spread en utilisant le modèle d'Ornstein-Uhlenbeck, permettant de visualiser son évolution future.</p>
+        </li>
+        <li>
+            <strong>Stratégie d'Arbitrage :</strong>
+            <p>Une stratégie d'arbitrage est implémentée pour tirer profit des écarts entre le spread et sa moyenne. Des signaux d'achat (long) et de vente (short) sont générés basés sur des seuils prédéfinis.</p>
+        </li>
+        <li>
+            <strong>Visualisation Interactive :</strong>
+            <p>Les résultats des simulations et la stratégie d'arbitrage sont visualisés à l'aide de graphiques interactifs générés avec Plotly. Les graphiques montrent les simulations du spread, le spread moyen.</p>
+        </li>
+        <li>
+            <strong>Analyse de Performance :</strong>
+            <p>L'application calcule plusieurs métriques de performance, telles que le profit total, le taux de réussite des trades. Ces métriques permettent d'évaluer l'efficacité de la stratégie d'arbitrage.</p>
+        </li>
+    </ol>
+
+    <h2>Interface Utilisateur</h2>
+    <p>
+        L'interface utilisateur permet de configurer les paramètres de la simulation (période, intervalle, nombre de simulations, etc.) et d'afficher les résultats sous forme de tableaux et de graphiques.
+    </p>
+
+    <li>
+        <strong>Pour bien comprendre le partie du projet, il est essentiel de maîtriser certaines notions clés en finance, en mathématiques, et en modélisation statistique. Voici une liste des concepts importants à connaître, expliqués de manière concise :
+
+</strong>
+    </li>
+        <h3>Arbitrage</h3>
+        <p>L'arbitrage est une stratégie financière qui consiste à exploiter les différences de prix d'un actif ou d'un ensemble d'actifs sur différents marchés ou dans le temps, afin de réaliser un profit sans risque. Il s'agit d'acheter un actif à bas prix dans un marché et de le revendre à un prix plus élevé dans un autre, ou dans le même marché à un moment ultérieur.</p>
+
+        <h4>Types d'Arbitrage</h4>
+        <ul>
+            <li><strong>Arbitrage spatial</strong> : Consiste à exploiter les différences de prix pour un même actif sur différents marchés géographiques. Exemple : acheter une action à New York et la revendre à Londres si le prix est plus élevé là-bas.</li>
+            <li><strong>Arbitrage temporel</strong> : Exploite les différences de prix dans le temps pour un même actif. Exemple : acheter un actif aujourd'hui et le vendre à terme lorsque son prix est plus élevé.</li>
+            <li><strong>Arbitrage des paires corrélées</strong> : Exploite les divergences de prix entre deux actifs qui sont historiquement corrélés. Lorsque l'écart (ou le spread) entre ces actifs devient anormalement large, on peut en profiter pour réaliser un profit en pariant sur un retour à la normalité. <strong>C'est cette forme d'arbitrage qui est au cœur de ce projet, et les actifs étudiés ici sont Microsoft (MSFT) et Apple (AAPL)</strong>.</li>
+        </ul>
+
+        <p><strong>Arbitrage des Paires Corrélées</strong> : Ce type d'arbitrage repose sur l'idée que deux actifs qui évoluent généralement de manière similaire peuvent temporairement s'écarter de leur relation historique. Par exemple, si Microsoft et Apple ont une relation de corrélation forte, on peut observer leur écart (spread) se creuser ou se réduire, offrant une opportunité d'arbitrage. Ce projet est basé sur ce principe de l'arbitrage des paires corrélées, où le spread entre les prix d'ouverture des actions Microsoft et Apple est étudié.</p>
+
+        <h4>Le Spread</h4>
+        <p>Le spread fait référence à la différence de prix entre deux actifs, dans notre cas, entre Microsoft et Apple. Il peut être exprimé comme :</p>
+        <pre>Spread = Prix MSFT - Prix AAPL</pre>
+        <p>Dans le contexte de l'arbitrage des paires corrélées, le spread est utilisé pour identifier les moments où les actifs sont surévalués ou sous-évalués l'un par rapport à l'autre, créant ainsi des opportunités d'arbitrage.</p>
+
+        <h4>Processus d'Ornstein-Uhlenbeck</h4>
+        <p>Le <strong>processus d'Ornstein-Uhlenbeck (OU)</strong> est un processus stochastique qui modélise la réversion à la moyenne, c'est-à-dire la tendance d'une variable à revenir vers une valeur moyenne après s'en être écartée. Ce processus est couramment utilisé pour modéliser les spreads dans le cadre de l'arbitrage des paires corrélées. La formule du processus est la suivante :</p>
+        <pre>
+        dX(t) = θ(μ - X(t)) dt + σ dW(t)
+        </pre>
+        <p>Où :</p>
+        <ul>
+            <li><strong>θ</strong> : Vitesse de réversion, qui détermine à quelle vitesse le spread revient vers la moyenne μ.</li>
+            <li><strong>μ</strong> : La moyenne à long terme du spread.</li>
+            <li><strong>σ</strong> : L'écart-type du spread, représentant la volatilité du spread.</li>
+            <li><strong>dW(t)</strong> : Un terme aléatoire représentant un mouvement brownien, utilisé pour introduire de l'incertitude dans le processus.</li>
+        </ul>
+
+        <p><strong>Pourquoi le spread suit-il ce processus ?</strong> Contrairement au mouvement brownien géométrique qui est utilisé pour modéliser les prix d'actifs financiers comme les actions (où les prix évoluent de manière exponentielle), le spread entre deux actifs corrélés suit généralement un processus de réversion à la moyenne. Cela signifie que les valeurs du spread tendent à revenir à un niveau moyen à long terme après une déviation, ce qui est un comportement plus naturel pour des actifs qui se suivent de manière similaire. Le processus d'Ornstein-Uhlenbeck est donc plus adapté pour modéliser ce type de spread, car il prend en compte cette tendance de retour à la moyenne.</p>
+    </div>
+
+        <!-- Deuxième Onglet : Simulations -->
+        <div class="tab-pane fade" id="mu" role="tabpanel" aria-labelledby="mu-tab">
+            <h3>Régression Linéaire et Graphiques</h3>
+            <!-- Formulaire amélioré -->
+            <form method="POST" class="mb-4">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="n"><i class="fas fa-chart-bar"></i> Nombre de Spread à Prédire :</label>
+                        <input type="number" class="form-control" id="n" name="n" value="{{ n }}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="t"><i class="fas fa-clock"></i> Intervalle de Temps (t) :</label>
+                        <input type="text" step="0.0001" class="form-control" id="t" name="t" value="{{ t }}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="nbsim"><i class="fas fa-calculator"></i> Nombre de Simulations :</label>
+                        <input type="number" class="form-control" id="nbsim" name="nbsim" value="{{ nbsim }}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="period"><i class="fas fa-calculator"></i> Période (historique des données) :</label>
+                        <input type="text" class="form-control" id="period" name="period" value="{{ period }}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="interval"><i class="fas fa-calendar-alt"></i> Intervalle :</label>
+                        <input type="text" class="form-control" id="interval" name="interval" value="{{ interval }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-sync-alt"></i> Mettre à jour
+                </button>
+            </form>
+
+            <!-- Graphiques dans des cartes -->
+            <p>Estimation de θ : {{ theta }}</p>
+            <p>La moyenne du spread : {{ mu }}</p>
+            <p>Écart type du spread : {{ sigma }}</p>
+            <p>Corrélation : {{ correlation }}</p>
+            <div class="card mb-4 animate__animated animate__fadeIn">
+                <div class="card-header">
+                    <h5 class="card-title">Graphique des Simulations du Spread</h5>
+                </div>
+                <div class="card-body">
+                  {{ plot1|safe }}
+                </div>
+            </div>
+
+            <div class="card mb-4 animate__animated animate__fadeIn">
+                <div class="card-header">
+                    <h5 class="card-title">Graphique du Spread Moyen</h5>
+                </div>
+                <div class="card-body">
+                    {{ plot2|safe }}
+                </div>
+            </div>
+        </div>
+
+       <!-- Troisième Onglet : Stratégie d'Arbitrage -->
+        <div class="tab-pane fade" id="strategie" role="tabpanel" aria-labelledby="strategie-tab">
+            <h3>Stratégie d'Arbitrage</h3>
+            <p>Voici la stratégie d'arbitrage que nous appliquons, basée sur les seuils de spread :</p>
+            <ul>
+                <li>Seuil supérieur : {{ seuil_sup }}</li>
+                <li>Seuil inférieur : {{ seuil_inf }}</li>
+            </ul>
+            <h4>Performances de la stratégie</h4>
+            <p>Trades :</p>
+            {{ trades_html | safe }}
+            <p>Profit total : {{ total_profit }}</p>
+            <p>Taux de réussite : {{ win_rate }}</p>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4 mt-4">
+    <p class="mb-0">Projet Arbitrage - &copy; 2025</p>
+    <p class="mb-0">Développé par [Aya Zineddaine]</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
